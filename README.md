@@ -1,5 +1,6 @@
 ﻿# Trading Platform
 [![Netlify Status](https://api.netlify.com/api/v1/badges/95584e4f-3b81-4072-906c-18f630f6e183/deploy-status)](https://app.netlify.com/sites/peaceful-hopper-ec40a7/deploys)
+<br>
 [Live Demo](https://peaceful-hopper-ec40a7.netlify.app/)
 
 
