@@ -1,0 +1,89 @@
+body {
+  height: 98vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  font-family: monospace;
+  background: #282c34;
+  color: white;
+}
+
+.valid {
+  background: radial-gradient(circle at bottom center, #6da301 15px, #378b29);
+}
+.invalid {
+  background: radial-gradient(circle at bottom center, #ff5100 15px, #b40000);
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 35%;
+  text-align: center;
+  border-radius: 1.8em;
+  transition: 1s;
+}
+
+input {
+  width: 30vw;
+  font-size: 2em;
+  font-family: monospace;
+  font-weight: bold;
+  border: 0;
+  border-bottom: 3px dashed white;
+  text-align: center;
+  background-color: transparent;
+  color: #ffd300;
+}
+
+input:focus {
+  outline-style: none;
+}
+
+p {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.luhn > span,
+p > span {
+  color: #ffd300;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.luhn {
+  border: 0px solid white;
+  border-radius: 1em;
+  padding: 0 1em;
+}
+
+.luhnValid {
+  background-color: green;
+}
+
+.luhnInvalid {
+  background-color: red;
+}
+
+@media screen and (max-width: 992px) {
+  div {
+    width: 100%;
+    height: 100%;
+  }
+
+  input {
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  input {
+    width: 80vw;
+  }
+}
