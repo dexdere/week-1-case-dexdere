@@ -59,7 +59,7 @@ function changeDOM() {
 
 // Luhn algoritmasının kontrolünü yapıyor.
 function luhnAlgorithm(number) {
-  if (checkLength) {
+  if (numberSplit.length >= 12) {
     let arr = number.reverse().map((x) => parseInt(x));
     let lastDigit = arr.splice(0, 1)[0];
     let sum = arr.reduce(
