@@ -3,6 +3,7 @@ var inputNumber = document.querySelector("input");
 var result = document.querySelector(".result");
 var luhn = document.querySelector(".luhn");
 var allResult = document.querySelector("p");
+var logo = document.querySelector("img");
 
 var inputNumberValue;
 var numberSplit;
@@ -14,13 +15,14 @@ var checkSumNumber;
 var checkLastNumber;
 var checkSameNumber;
 var checkAll;
-
 var checkLuhnAlgorithm;
+var checkLogoLink;
 
 //Gerekli dönüştürme işlemlerini yapıyor.
 function converter() {
   inputNumberValue = document.querySelector("input").value;
-  valueReplace = inputNumberValue.replaceAll("-", "");
+  spaceReplace = inputNumberValue.replaceAll(" ", "");
+  valueReplace = spaceReplace.replaceAll("-", "");
   numberSplit = valueReplace.split("");
   convertToNumber = numberSplit.map((a) => parseInt(a));
 }
@@ -43,6 +45,7 @@ function checker() {
     checkLastNumber &&
     checkSumNumber &&
     checkSameNumber;
+  cardLogo();
 }
 
 //Dom üzerinde sonuçları gösteriyor.
@@ -53,14 +56,15 @@ function changeDOM() {
   allResult.innerHTML = `Length:<span>${checkLength}</span> - Number:<span>${checkNumber}</span> - Sum:<span>${checkSumNumber}</span>
   <p>Last Number:<span>${checkLastNumber}</span> - Same Number:<span>${checkNumber}</span></p>`;
 
-  luhn.innerHTML = `Luhn Algorithm:<span>${checkLuhnAlgorithm}<span>`;
+  luhn.innerHTML = `Luhn Algorithm:<span>${checkLuhnAlgorithm}</span></span>`;
+  logo.src = checkLogoLink;
   checkValid();
 }
 
 // Luhn algoritmasının kontrolünü yapıyor.
-function luhnAlgorithm(number) {
+function luhnAlgorithm() {
   if (numberSplit.length >= 12) {
-    let arr = number.reverse().map((x) => parseInt(x));
+    let arr = numberSplit.reverse().map((x) => parseInt(x));
     let lastDigit = arr.splice(0, 1)[0];
     let sum = arr.reduce(
       (acc, value, index) =>
@@ -84,10 +88,24 @@ function checkValid() {
   }
 }
 
+function cardLogo() {
+  if (numberSplit.length >= 12) {
+    if (inputNumberValue[0] == 4) {
+      checkLogoLink = "https://img.icons8.com/fluency/48/000000/visa.png";
+    } else if (inputNumberValue[0] == 5 && inputNumberValue[1] <= 5) {
+      checkLogoLink = "https://img.icons8.com/color/48/000000/mastercard.png";
+    } else {
+      checkLogoLink = "";
+    }
+  } else {
+    checkLogoLink = "";
+  }
+}
+
 function allFunctions() {
   converter();
   checker();
-  luhnAlgorithm(numberSplit);
+  luhnAlgorithm();
   changeDOM();
 }
 
