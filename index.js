@@ -45,8 +45,9 @@ function checker() {
 function changeDOM() {
   result.innerHTML = check.all ? "Valid" : "Invalid";
   body.className = check.all === true ? "valid" : "invalid";
-  allResult.innerHTML = `Length:<span>${check.length}</span> - Number:<span>${check.number}</span> - Sum:<span>${check.sum}</span> <p>Last Number:<span>${check.lastNumber}</span> - Same Number:<span>${check.number}</span></p>`;
   luhn.innerHTML = `Luhn Algorithm:<span>${check.luhnAlgorithm}</span></span>`;
+  allResult.innerHTML = `Length:<span>${check.length}</span> - Number:<span>${check.number}</span> - Sum:<span>${check.sum}</span> 
+  <p>Last Number:<span>${check.lastNumber}</span> - Same Number:<span>${check.number}</span></p>`;
   logo.src = check.logoUrl;
   checkValid();
 }
