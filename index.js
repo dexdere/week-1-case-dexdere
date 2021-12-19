@@ -1,22 +1,24 @@
-var body = document.querySelector("body");
-var inputNumber = document.querySelector("input");
-var result = document.querySelector(".result");
-var luhn = document.querySelector(".luhn");
-var allResult = document.querySelector("p");
-var logo = document.querySelector("img");
+const body = document.querySelector("body");
+const inputNumber = document.querySelector("input");
+const result = document.querySelector(".result");
+const luhn = document.querySelector(".luhn");
+const allResult = document.querySelector("p");
+const logo = document.querySelector("img");
 
 var inputNumberValue;
 var numberSplit;
 var convertToNumber;
 
-var checkLength;
-var checkNumber;
-var checkSumNumber;
-var checkLastNumber;
-var checkSameNumber;
-var checkAll;
-var checkLuhnAlgorithm;
-var checkLogoLink;
+const check = {
+  all: "",
+  length: "",
+  number: "",
+  sum: "",
+  lastNumber: "",
+  sameNumber: "",
+  luhnAlgorithm: "",
+  logoUrl: "",
+};
 
 //Gerekli dönüştürme işlemlerini yapıyor.
 function converter() {
@@ -25,61 +27,46 @@ function converter() {
   valueReplace = spaceReplace.replaceAll("-", "");
   numberSplit = valueReplace.split("");
   convertToNumber = numberSplit.map((a) => parseInt(a));
+  convertToNumber.sort((a, b) => a - b);
 }
 
 //İstenen kontrolleri yapıp değişkenlere "true" yada "false" değerini atıyor.
 function checker() {
-  checkLength = valueReplace.length === 16 ? true : false;
-  checkNumber = !isNaN(Number(valueReplace)) ? true : false;
-  checkSumNumber = convertToNumber.reduce((a, b) => a + b) > 16 ? true : false;
-  checkLastNumber =
-    valueReplace[valueReplace.length - 1] % 2 === 0 ? true : false;
-  convertToNumber.sort((a, b) => a - b);
-  checkSameNumber =
-    convertToNumber[0] === convertToNumber[convertToNumber.length - 1]
-      ? false
-      : true;
-  checkAll =
-    checkLength &&
-    checkNumber &&
-    checkLastNumber &&
-    checkSumNumber &&
-    checkSameNumber;
+  check.length = valueReplace.length === 16 ? true : false;
+  check.number = !isNaN(Number(valueReplace)) ? true : false;
+  check.sum = convertToNumber.reduce((a, b) => a + b) > 16 ? true : false;
+  check.lastNumber = valueReplace[valueReplace.length - 1] % 2 === 0 ? true : false;
+  check.sameNumber = convertToNumber[0] === convertToNumber[convertToNumber.length - 1] ? false : true;
+  check.all = check.length && check.number && check.lastNumber && check.sum && check.sameNumber;
   cardLogo();
 }
 
 //Dom üzerinde sonuçları gösteriyor.
 function changeDOM() {
-  result.innerHTML = checkAll ? "Valid" : "Invalid";
-  body.className = checkAll === true ? "valid" : "invalid";
-
-  allResult.innerHTML = `Length:<span>${checkLength}</span> - Number:<span>${checkNumber}</span> - Sum:<span>${checkSumNumber}</span>
-  <p>Last Number:<span>${checkLastNumber}</span> - Same Number:<span>${checkNumber}</span></p>`;
-
-  luhn.innerHTML = `Luhn Algorithm:<span>${checkLuhnAlgorithm}</span></span>`;
-  logo.src = checkLogoLink;
+  result.innerHTML = check.all ? "Valid" : "Invalid";
+  body.className = check.all === true ? "valid" : "invalid";
+  allResult.innerHTML = `Length:<span>${check.length}</span> - Number:<span>${check.number}</span> - Sum:<span>${check.sum}</span> <p>Last Number:<span>${check.lastNumber}</span> - Same Number:<span>${check.number}</span></p>`;
+  luhn.innerHTML = `Luhn Algorithm:<span>${check.luhnAlgorithm}</span></span>`;
+  logo.src = check.logoUrl;
   checkValid();
 }
 
-// Luhn algoritmasının kontrolünü yapıyor.
+//Luhn algoritmasının kontrolünü yapıyor.
 function luhnAlgorithm() {
   if (numberSplit.length >= 12) {
-    let arr = numberSplit.reverse().map((x) => parseInt(x));
-    let lastDigit = arr.splice(0, 1)[0];
-    let sum = arr.reduce(
-      (acc, value, index) =>
-        index % 2 !== 0 ? acc + value : acc + ((value * 2) % 9) || 9,
-      0
-    );
+    let array = numberSplit.reverse().map((x) => parseInt(x));
+    let lastDigit = array.splice(0, 1)[0];
+    let sum = array.reduce((acc, value, index) => index % 2 !== 0 ? acc + value : acc + ((value * 2) % 9) || 9,0);
     sum += lastDigit;
-    checkLuhnAlgorithm = sum % 10 === 0 ? "valid" : "invalid";
+    check.luhnAlgorithm = sum % 10 === 0 ? "valid" : "invalid";
   } else {
-    checkLuhnAlgorithm = "invalid";
+    check.luhnAlgorithm = "invalid";
   }
 }
 
+//Luhn algoritmasının CSS'i için gerekli class atamasını yapıyor.
 function checkValid() {
-  if (checkLuhnAlgorithm === "valid") {
+  if (check.luhnAlgorithm === "valid") {
     luhn.classList.remove("luhnInvalid");
     luhn.classList.add("luhnValid");
   } else {
@@ -88,17 +75,18 @@ function checkValid() {
   }
 }
 
+//Kartın "MasterCard" mı yoksa "Visa" mı olduğunu kontrol edip ilgili değişkene URL atıyor.
 function cardLogo() {
   if (numberSplit.length >= 12) {
     if (inputNumberValue[0] == 4) {
-      checkLogoLink = "https://img.icons8.com/fluency/48/000000/visa.png";
+      check.logoUrl = "https://img.icons8.com/fluency/48/000000/visa.png";
     } else if (inputNumberValue[0] == 5 && inputNumberValue[1] <= 5) {
-      checkLogoLink = "https://img.icons8.com/color/48/000000/mastercard.png";
+      check.logoUrl = "https://img.icons8.com/color/48/000000/mastercard.png";
     } else {
-      checkLogoLink = "";
+      check.logoUrl = "";
     }
   } else {
-    checkLogoLink = "";
+    check.logoUrl = "";
   }
 }
 
