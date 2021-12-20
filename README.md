@@ -1,3 +1,9 @@
+﻿# Check Credit Card
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ca9aa699-276e-4ec0-b2e9-0b1fb913a38a/deploy-status)](https://app.netlify.com/sites/flamboyant-davinci-446fbe/deploys)
+<br>
+[Live Demo](https://flamboyant-davinci-446fbe.netlify.app/)
+
+
 Selamlar arkadaşlar ☺️ <br/><br/> 
 Bootcamp’e ait ilk ödevin detayları aşağıda yer almaktadır. Çok vaktinizi alacağını düşünmüyorum ve işlediğimiz konuların harmanlanması sonucu bir ödev olacak. Hazır herhangi bir şey kullanmasınızı istemiyorum (regex, hazır kütüphane) sadece pure JavaScript olmasına özen gösterelim 😊
 
